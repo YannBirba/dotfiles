@@ -1,4 +1,5 @@
 alias zshconfig="code ~/.zshrc"
+alias aliasconfig="code ~/.bash_aliases"
 alias ls="exa -l -g -a -m -h --icons"
 alias lst="exa -l -g -a -m -h -1 --icons --tree"
 alias pn=pnpm
@@ -54,3 +55,4 @@ alias pmain='git push origin main'
 alias pdev='git push origin dev'
 alias findfile="ls | grep -i"
 alias findhistory="history | grep -i"
+alias untracked="git ls-files . --others --exclude-standard  --others"
