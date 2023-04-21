@@ -69,3 +69,29 @@ alias format="pn format"
 alias fix="pn fix"
 alias showlog="tail -f"
 alias sl="showlog"
+
+function createreact() {
+    if ! pn create vite@latest "$1" --template react-swc-ts; then
+        echo "Error: pn create vite@latest $1 --template react-swc-ts failed"
+        return 1
+    fi
+    if ! cd "$1"; then
+        echo "Error: cd $1 failed"
+        return 1
+    fi
+    if ! pn i; then
+        echo "Error: pnpm install failed"
+        return 1
+    fi
+    if ! pn up --latest; then
+        echo "Error: pnpm up --latest failed"
+        return 1
+    fi
+    if ! code .; then
+        echo "Error: code . failed"
+        return 1
+    fi
+    printf "\n"
+    echo "Success: Created React project $1"
+    return 0
+}
