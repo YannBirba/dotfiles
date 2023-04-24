@@ -25,7 +25,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ssl='openssl req -nodes -newkey rsa:2048 -keyout example.key -out example.csr -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"'
 alias h='history'
-alias j='jobs -l'
+alias js='jobs -l'
 alias headers='curl -I --insecure'
 alias api='curl -i -X GET -H "Accept: application/json" -H "Content-Type: application/json" --insecure'
 alias apiheaders='curl -I -X GET -H "Accept: application/json" -H "Content-Type: application/json" --insecure'
@@ -69,6 +69,8 @@ alias format="pn format"
 alias fix="pn fix"
 alias showlog="tail -f"
 alias sl="showlog"
+alias go="j"
+alias goc="jc"
 
 function createreact() {
     if ! pn create vite@latest "$1" --template react-swc-ts; then
