@@ -19,6 +19,7 @@ plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web
 source $ZSH/oh-my-zsh.sh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 fix_wsl2_interop() {
     for i in $(pstree -np -s $$ | grep -o -E '[0-9]+'); do
@@ -33,6 +34,30 @@ fix_wsl2_interop() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+    local nvmrc_path
+    nvmrc_path="$(nvm_find_nvmrc)"
+
+    if [ -n "$nvmrc_path" ]; then
+        local nvmrc_node_version
+        nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+        if [ "$nvmrc_node_version" = "N/A" ]; then
+            nvm install
+        elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+            nvm use
+        fi
+    elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+        echo "Reverting to nvm default version"
+        nvm use default
+    fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 export FZF_BASE="$HOME/.fzf"
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
