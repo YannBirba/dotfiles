@@ -76,3 +76,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+export DENO_INSTALL="/home/yann/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"

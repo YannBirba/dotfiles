@@ -24,3 +24,4 @@ dev
 .bash_history
 .oh-my-zsh
 .node_repl_history
+.deno/bin/deno
