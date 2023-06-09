@@ -25,3 +25,5 @@ dev
 .oh-my-zsh
 .node_repl_history
 .deno/bin/deno
+.autojump
+.dbus

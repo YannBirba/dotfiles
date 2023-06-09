@@ -3,3 +3,6 @@
 [core]
 	filemode = true
 	autocrlf = true
+[user]
+	name = Yann Birba
+	email = birbayann@gmail.com

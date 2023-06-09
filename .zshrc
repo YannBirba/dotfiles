@@ -14,6 +14,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 HIST_STAMPS="dd/mm/yyyy"
 
+[[ -s /home/yann/.autojump/etc/profile.d/autojump.sh ]] && source /home/yann/.autojump/etc/profile.d/autojump.sh
+
+autoload -U compinit && compinit -u
+
 plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web-search autojump docker nvm node composer laravel zsh-autosuggestions zsh-syntax-highlighting sudo fzf laravel-sail)
 
 source $ZSH/oh-my-zsh.sh
@@ -63,8 +67,6 @@ export FZF_BASE="$HOME/.fzf"
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-
-. /usr/share/autojump/autojump.sh
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

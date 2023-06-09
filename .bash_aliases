@@ -23,7 +23,6 @@ alias update="sudo apt update && sudo apt upgrade -y"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias ssl='openssl req -nodes -newkey rsa:2048 -keyout example.key -out example.csr -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"'
 alias h='history'
 alias js='jobs -l'
 alias headers='curl -I --insecure'
@@ -70,6 +69,10 @@ alias showlog="tail -f"
 alias sl="showlog"
 alias go="j"
 alias goc="jc"
+
+function ssl() {
+    openssl req -nodes -newkey rsa:2048 -keyout "$1"-key.pem -out "$1"-cert.csr -subj "/C=FR/ST=Auvergne-Rhône-Alpes/L=Saint-Etienne/O=Yann Birba/OU=Development/CN=yannbirba.fr"
+}
 
 function createreact() {
     if ! pn create vite@latest "$1" --template react-swc-ts; then
