@@ -31,3 +31,8 @@ dev
 .dbus
 .python_history
 autojump/
+.rest-client
+.pki
+.fontconfig
+.cargo
+.babel.json
