@@ -64,17 +64,23 @@ alias start="pn start"
 alias test="pn test"
 alias lint="pn lint"
 alias format="pn format"
+alias clean="pn clean"
 alias fix="pn fix"
 alias showlog="tail -f"
 alias sl="showlog"
 alias go="j"
 alias goc="jc"
+alias pm="pm2"
 
 function ssl() {
     openssl req -nodes -newkey rsa:2048 -keyout "$1"-key.pem -out "$1"-cert.csr -subj "/C=FR/ST=Auvergne-Rhône-Alpes/L=Saint-Etienne/O=Yann Birba/OU=Development/CN=yannbirba.fr"
 }
 
-function createreact() {
+function create:react() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a name for the project"
+        return 1
+    fi
     if ! pn create vite@latest "$1" --template react-swc-ts; then
         echo "Error: pn create vite@latest $1 --template react-swc-ts failed"
         return 1
@@ -91,11 +97,117 @@ function createreact() {
         echo "Error: pnpm up --latest failed"
         return 1
     fi
+    if ! git init; then
+        echo "Error: git init failed"
+        return 1
+    fi
+    if ! git add .; then
+        echo "Error: git add . failed"
+        return 1
+    fi
+    if ! git commit -m "feat:create app"; then
+        echo "Error: git commit -m 'feat:create app' failed"
+        return 1
+    fi
     if ! code .; then
         echo "Error: code . failed"
         return 1
     fi
     printf "\n"
     echo "Success: Created React project $1"
+    return 0
+}
+
+function create:remix() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a name for the project"
+        return 1
+    fi
+    if ! pn create remix@latest "$1" --typescript --template express --install; then
+        echo "Error: pn create remix@latest $1 --typescript --template express --install failed"
+        return 1
+    fi
+    if ! cd "$1"; then
+        echo "Error: cd $1 failed"
+        return 1
+    fi
+    if ! pn up --latest; then
+        echo "Error: pnpm up --latest failed"
+        return 1
+    fi
+    if ! git init; then
+        echo "Error: git init failed"
+        return 1
+    fi
+    if ! git add .; then
+        echo "Error: git add . failed"
+        return 1
+    fi
+    if ! git commit -m "feat:create app"; then
+        echo "Error: git commit -m 'feat:create app' failed"
+        return 1
+    fi
+    if ! code .; then
+        echo "Error: code . failed"
+        return 1
+    fi
+    printf "\n"
+    echo "Success: Created Remix project $1"
+    return 0
+}
+
+function pm:start:npm() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a name for the process"
+        return 1
+    fi
+    if ! pm2 start pnpm --name "$1" --watch --ignore-watch="node_modules" --time --interpreter bash -- start; then
+        echo "Error: pm2 start pnpm --name $1 --interpreter bash -- start failed"
+        return 1
+    fi
+    if ! pm2 save; then
+        echo "Error: pm2 save failed"
+        return 1
+    fi
+    pm2 startup
+    printf "\n"
+    echo "Success: Started $1"
+    return 0
+}
+
+function pm:start:config() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a name for the process"
+        return 1
+    fi
+    if ! pm2 start ecosystem.config.js --name "$1" --watch --ignore-watch="node_modules" --time --interpreter bash; then
+        echo "Error: pm2 start ecosystem.config.js --name $1 --watch --ignore-watch=node_modules --time failed"
+        return 1
+    fi
+    if ! pm2 save; then
+        echo "Error: pm2 save failed"
+        return 1
+    fi
+    pm2 startup
+    printf "\n"
+    echo "Success: Started $1"
+    return 0
+}
+
+function pmdelete() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a name for the process"
+        return 1
+    fi
+    if ! pm2 delete "$1"; then
+        echo "Error: pm2 delete $1 failed"
+        return 1
+    fi
+    if ! pm2 save; then
+        echo "Error: pm2 save failed"
+        return 1
+    fi
+    printf "\n"
+    echo "Success: Deleted $1"
     return 0
 }

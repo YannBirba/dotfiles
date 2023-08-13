@@ -36,3 +36,4 @@ autojump/
 .fontconfig
 .cargo
 .babel.json
+*.pm2
