@@ -37,3 +37,4 @@ autojump/
 .cargo
 .babel.json
 *.pm2
+.expo
