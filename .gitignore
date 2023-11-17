@@ -38,3 +38,7 @@ autojump/
 .babel.json
 *.pm2
 .expo
+.bun
+.quokka
+.rustup
+meili_data

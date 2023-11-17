@@ -123,8 +123,8 @@ function create:remix() {
         echo "Error: Please provide a name for the project"
         return 1
     fi
-    if ! pn create remix@latest "$1" --typescript --template express --install; then
-        echo "Error: pn create remix@latest $1 --typescript --template express --install failed"
+    if ! pn create remix@latest "$1" --typescript --template remix-run/remix/templates/unstable-vite-express --install; then
+        echo "Error: pn create remix@latest $1 --typescript --template remix-run/remix/templates/unstable-vite-express --install failed"
         return 1
     fi
     if ! cd "$1"; then
@@ -133,18 +133,6 @@ function create:remix() {
     fi
     if ! pn up --latest; then
         echo "Error: pnpm up --latest failed"
-        return 1
-    fi
-    if ! git init; then
-        echo "Error: git init failed"
-        return 1
-    fi
-    if ! git add .; then
-        echo "Error: git add . failed"
-        return 1
-    fi
-    if ! git commit -m "feat:create app"; then
-        echo "Error: git commit -m 'feat:create app' failed"
         return 1
     fi
     if ! code .; then

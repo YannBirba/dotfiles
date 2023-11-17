@@ -81,3 +81,9 @@ esac
 
 export DENO_INSTALL="/home/yann/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+# bun completions
+[ -s "/home/yann/.bun/_bun" ] && source "/home/yann/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
