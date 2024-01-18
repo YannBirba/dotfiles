@@ -47,6 +47,8 @@ alias ai='ainstall'
 alias ar='aremove'
 alias ssa="service --status-all"
 alias dsp="docker system prune -f -a --volumes"
+alias star='tar -czvf'
+alias suntar='tar -zxvf'
 alias gs='git status'
 alias gr='git remote -v'
 alias pmain='git push origin main'
@@ -118,32 +120,6 @@ function create:react() {
     fi
     printf "\n"
     echo "Success: Created React project $1"
-    return 0
-}
-
-function create:remix() {
-    if [ -z "$1" ]; then
-        echo "Error: Please provide a name for the project"
-        return 1
-    fi
-    if ! pn create remix@latest "$1" --typescript --template remix-run/remix/templates/unstable-vite-express --install; then
-        echo "Error: pn create remix@latest $1 --typescript --template remix-run/remix/templates/unstable-vite-express --install failed"
-        return 1
-    fi
-    if ! cd "$1"; then
-        echo "Error: cd $1 failed"
-        return 1
-    fi
-    if ! pn up --latest; then
-        echo "Error: pnpm up --latest failed"
-        return 1
-    fi
-    if ! code .; then
-        echo "Error: code . failed"
-        return 1
-    fi
-    printf "\n"
-    echo "Success: Created Remix project $1"
     return 0
 }
 
