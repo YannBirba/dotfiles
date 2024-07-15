@@ -2,8 +2,8 @@
 
 alias zshconfig="code ~/.zshrc"
 alias aliasconfig="code ~/.bash_aliases"
-alias ls="eza -l -g -a -m -h -icons"
-alias lst="eza -l -g -a -m -h -1 -icons -tree"
+alias ls="eza -l -g -a -m -h --icons"
+alias lst="eza -l -g -a -m -h -1 --icons --tree"
 alias pn=pnpm
 alias batcat=bat
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
