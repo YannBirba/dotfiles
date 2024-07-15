@@ -2,7 +2,7 @@
 	defaultBranch = main
 [core]
 	filemode = true
-	autocrlf = true
+	autocrlf = input
 [user]
 	name = Yann Birba
 	email = birbayann@gmail.com
