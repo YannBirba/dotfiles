@@ -8,7 +8,7 @@
 .aws
 .azure
 .npm
-.vscode-server
+.vscode-*
 .ssh
 .nvm
 .config
@@ -42,3 +42,4 @@ autojump/
 .quokka
 .rustup
 meili_data
+.landscape
