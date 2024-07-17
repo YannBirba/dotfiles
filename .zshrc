@@ -87,3 +87,9 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+alias cla="source create-laravel-app"
+alias create-laravel-app="source create-laravel-app"
+
+# Shopify Hydrogen alias to local projects
+alias h2='$(npm prefix -s)/node_modules/.bin/shopify hydrogen'
+PATH=~/.console-ninja/.bin:$PATH

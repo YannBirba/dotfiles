@@ -2,8 +2,8 @@
 
 alias zshconfig="code ~/.zshrc"
 alias aliasconfig="code ~/.bash_aliases"
-alias ls="exa -l -g -a -m -h --icons"
-alias lst="exa -l -g -a -m -h -1 --icons --tree"
+alias ls="eza -l -g -a -m -h --icons"
+alias lst="eza -l -g -a -m -h -1 --icons --tree"
 alias pn=pnpm
 alias batcat=bat
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
@@ -47,8 +47,6 @@ alias ai='ainstall'
 alias ar='aremove'
 alias ssa="service --status-all"
 alias dsp="docker system prune -f -a --volumes"
-alias tar='tar -czvf'
-alias untar='tar -zxvf'
 alias gs='git status'
 alias gr='git remote -v'
 alias pmain='git push origin main'
@@ -71,9 +69,14 @@ alias sl="showlog"
 alias go="j"
 alias goc="jc"
 alias pm="pm2"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 function ssl() {
     openssl req -nodes -newkey rsa:2048 -keyout "$1"-key.pem -out "$1"-cert.csr -subj "/C=FR/ST=Auvergne-Rhône-Alpes/L=Saint-Etienne/O=Yann Birba/OU=Development/CN=yannbirba.fr"
+}
+
+function local-ssl() {
+    openssl req -nodes -newkey rsa:2048 -keyout "$1"-key.pem -out "$1"-cert.csr -subj "/C=FR/ST=Auvergne-Rhône-Alpes/L=Saint-Etienne/O=Yann Birba/OU=Development/CN=localhost"
 }
 
 function create:react() {
@@ -197,5 +200,127 @@ function pmdelete() {
     fi
     printf "\n"
     echo "Success: Deleted $1"
+    return 0
+}
+
+# tar -czvf archive.tar.gz folder_to_compress -s|--sudo
+function tarme() {
+
+    # Read arguments
+
+    local folder_to_compress
+    local archive_name
+    local sudo
+
+    while [ "$1" != "" ]; do
+        case $1 in
+        -s | --sudo)
+            sudo="sudo"
+            ;;
+        *)
+            folder_to_compress="$1"
+            ;;
+        esac
+        shift
+    done
+
+    # Check if folder_to_compress is set
+
+    if [ -z "$folder_to_compress" ]; then
+        echo "Error: Please provide a folder to compress"
+        return 1
+    fi
+
+    # Check if folder_to_compress exists
+
+    if [ ! -d "$folder_to_compress" ]; then
+        echo "Error: $folder_to_compress does not exist"
+        return 1
+    fi
+
+    # Check if archive_name is set
+
+    if [ -z "$archive_name" ]; then
+        archive_name="$(basename "$folder_to_compress")"
+    fi
+
+    # Check if archive_name already exists
+
+    if [ -f "$archive_name.tar.gz" ]; then
+        echo "Error: $archive_name.tar.gz already exists"
+        return 1
+    fi
+
+    # Compress folder_to_compress
+
+    if ! $sudo tar -czvf "$archive_name.tar.gz" "$folder_to_compress"; then
+        echo "Error: $sudo tar -czvf $archive_name.tar.gz $folder_to_compress failed"
+        return 1
+    fi
+
+    # Check if archive_name.tar.gz exists
+
+    if [ ! -f "$archive_name.tar.gz" ]; then
+        echo "Error: $archive_name.tar.gz does not exist"
+        return 1
+    fi
+
+    # Check if archive_name.tar.gz is not empty
+
+    if [ ! -s "$archive_name.tar.gz" ]; then
+        echo "Error: $archive_name.tar.gz is empty"
+        return 1
+    fi
+
+    return 0
+}
+
+# tar -xzvf archive.tar.gz -s|--sudo
+function untarme() {
+    # Read arguments
+
+    local archive_to_extract
+    local sudo
+
+    while [ "$1" != "" ]; do
+        case $1 in
+        -s | --sudo)
+            sudo="sudo"
+            ;;
+        *)
+            archive_to_extract="$1"
+            ;;
+        esac
+        shift
+    done
+
+    # Check if archive_to_extract is set
+
+    if [ -z "$archive_to_extract" ]; then
+        echo "Error: Please provide an archive to extract"
+        return 1
+    fi
+
+    # Check if archive_to_extract exists
+
+    if [ ! -f "$archive_to_extract" ]; then
+        echo "Error: $archive_to_extract does not exist"
+        return 1
+    fi
+
+    # Check if archive_to_extract is not empty
+
+    if [ ! -s "$archive_to_extract" ]; then
+        echo "Error: $archive_to_extract is empty"
+        return 1
+    fi
+
+    # Extract archive_to_extract
+
+    if ! $sudo tar -xzvf "$archive_to_extract"; then
+        echo "Error: $sudo tar -xzvf $archive_to_extract failed"
+        return 1
+    fi
+
     return 0
 }
