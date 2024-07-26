@@ -42,4 +42,7 @@ meili_data
 .landscape
 .dbclient
 .npmrc
-/.supermaven
+.supermaven
+.continue
+.nv
+.ollama
