@@ -9,6 +9,8 @@
 .azure
 .npm
 .vscode-*
+.vscode-server
+.vscode-remote-containers
 .ssh
 .nvm
 .config
@@ -17,6 +19,10 @@
 dev
 .zcompdump
 .zcompdump-*
+.zcompdump-PC-YANN-5.8.1
+.zcompdump-PC-YANN-5.8.1.zwc
+.zcompdump-PC-DEV-4-5.8.1
+.zcompdump-PC-DEV-4-5.8.1.zwc
 .viminfo
 .wget-hsts
 .lesshst
@@ -46,5 +52,7 @@ meili_data
 .continue
 .nv
 .ollama
+.phpls
+.pyenv
 addok*
 meili*
