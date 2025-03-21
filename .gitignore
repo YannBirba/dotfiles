@@ -17,6 +17,7 @@
 dev
 .zcompdump
 .zcompdump-*
+.zcompdump.*
 .viminfo
 .wget-hsts
 .lesshst
@@ -46,3 +47,6 @@ meili_data
 .continue
 .nv
 .ollama
+.phpls
+.lemminx
+.gnupg

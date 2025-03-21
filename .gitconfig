@@ -1,8 +1,20 @@
 [init]
-defaultBranch = main
+	defaultBranch = main
 [core]
-filemode = true
-autocrlf = input
+	filemode = true
+	autocrlf = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 [user]
-name = Yann Birba
-email = birbayann@gmail.com
+	name = Yann Birba
+	email = birbayann@gmail.com
+	signingkey = /mnt/c/Users/Yann/.ssh/github.pub
+[core]
+	editor = \"/mnt/c/Users/Yann/AppData/Local/Programs/Microsoft VS Code/bin/code\" --wait
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
