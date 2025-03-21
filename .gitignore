@@ -9,6 +9,8 @@
 .azure
 .npm
 .vscode-*
+.vscode-server
+.vscode-remote-containers
 .ssh
 .nvm
 .config
@@ -50,3 +52,6 @@ meili_data
 .phpls
 .lemminx
 .gnupg
+.pyenv
+addok*
+meili*

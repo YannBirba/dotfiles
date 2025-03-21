@@ -161,3 +161,21 @@ fi
 ###-end-npm-completion-###
 
 export PATH="$PATH:/usr/local/bin"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+function load_php_version() {
+    if [ -f .php-version ]; then
+        local php_version=$(cat .php-version)
+        export PATH="/usr/bin/php${php_version}:$PATH"
+        echo "Switched to PHP $php_version"
+    fi
+}
+
+function chpwd() {
+    load_php_version
+}
+
+load_php_version
