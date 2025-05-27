@@ -300,3 +300,81 @@ function untarme() {
 
     return 0
 }
+
+function load_php_version() {
+    if [ -f .php-version ]; then
+        local php_version
+        php_version=$(cat .php-version)
+        if [ -f "/usr/bin/php${php_version}" ]; then
+            echo "Switching to PHP $php_version"
+            sudo update-alternatives --set php /usr/bin/php"${php_version}" >/dev/null 2>&1
+            echo "Switched to PHP $php_version"
+            php -v | head -n 1
+        else
+            echo "PHP version $php_version specified in .php-version file not found"
+        fi
+    fi
+}
+
+function chpwd() {
+    load_php_version
+}
+
+load_php_version
+
+# php-version: A utility function to switch between different PHP versions system-wide.
+#
+# Usage:
+#   php-version           - Shows available PHP versions and usage instructions
+#   php-version [version] - Switches to the specified PHP version system-wide
+#   php-version [version] --save|-s - Switches to the specified PHP version and saves it to .php-version file
+#
+# How it works:
+#   1. The function uses sudo update-alternatives to change the system's default PHP version
+#   2. This modifies the /etc/alternatives/php symbolic link to point to the selected PHP version
+#   3. With the --save option, it creates/updates a .php-version file in the current directory
+#   4. When combined with the load_php_version function, this enables automatic PHP version switching
+#      when entering directories with a .php-version file
+function php-version() {
+    local version=$1
+
+    # Check if the version parameter is provided
+    if [ -z "$version" ]; then
+        echo "Usage: php-version [version] [--save|-s]"
+        echo "Available PHP versions:"
+        for file in /usr/bin/php*; do
+            base=$(basename "$file")
+            if [[ $base =~ ^php([0-9]+(\.[0-9]+)?)$ ]]; then
+                echo "${BASH_REMATCH[1]}"
+            fi
+        done
+        return 1
+    fi
+
+    # Check if the specified PHP version exists
+    if [ ! -f "/usr/bin/php${version}" ]; then
+        echo "PHP version ${version} not found."
+        echo "Available PHP versions:"
+        for file in /usr/bin/php*; do
+            base=$(basename "$file")
+            if [[ $base =~ ^php([0-9]+(\.[0-9]+)?)$ ]]; then
+                echo "${BASH_REMATCH[1]}"
+            fi
+        done
+        return 1
+    fi
+
+    # Use sudo update-alternatives to change the system's PHP version
+    echo "Switching to PHP $version"
+    sudo update-alternatives --set php /usr/bin/php"${version}" >/dev/null 2>&1
+    echo "Switched to PHP $version"
+
+    # Optionally save the version to .php-version in the current directory
+    if [ "$2" = "--save" ] || [ "$2" = "-s" ]; then
+        echo "${version}" >.php-version
+        echo "PHP version ${version} saved to .php-version"
+    fi
+
+    # Show the current PHP version
+    php -v | head -n 1
+}
