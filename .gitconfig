@@ -14,7 +14,14 @@
 	signingkey = /mnt/c/Users/Yann/.ssh/github.pub
 [core]
 	editor = \"/mnt/c/Users/Yann/AppData/Local/Programs/Microsoft VS Code/bin/code\" --wait
+	compression = 9
+	whitespace = error
+	preloadindex = true
 [commit]
 	gpgsign = true
 [gpg]
 	format = ssh
+[advice]
+	addEmptyPathspec = false
+	pushNonFastForward = false
+	statusHints = false
