@@ -18,7 +18,7 @@ HIST_STAMPS="dd/mm/yyyy"
 
 autoload -U compinit && compinit -u
 
-plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web-search autojump docker nvm node composer laravel zsh-autosuggestions zsh-syntax-highlighting sudo fzf laravel-sail)
+plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web-search autojump docker nvm node composer laravel zsh-autosuggestions zsh-syntax-highlighting sudo fzf)
 
 source $ZSH/oh-my-zsh.sh
 
