@@ -55,3 +55,4 @@ meili_data
 .pyenv
 addok*
 meili*
+.symfony5/*

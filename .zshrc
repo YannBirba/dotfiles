@@ -160,6 +160,9 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
+export PATH="$HOME/.symfony/bin:$PATH"
+source ~/.symfony_completion
+
 # Clean up duplicate entries in PATH
 PATH=$(echo $PATH | awk -v RS=: -v ORS=: '!a[$1]++')
 export PATH=$(echo $PATH | sed 's/:*$//')
