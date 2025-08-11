@@ -120,3 +120,5 @@ fi
 
 PATH=~/.console-ninja/.bin:$PATH
 . "$HOME/.cargo/env"
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"

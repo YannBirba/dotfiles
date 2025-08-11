@@ -320,12 +320,6 @@ function load_php_version() {
     fi
 }
 
-function chpwd() {
-    load_php_version
-}
-
-load_php_version
-
 # php-version: A utility function to switch between different PHP versions system-wide.
 #
 # Usage:

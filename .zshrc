@@ -163,6 +163,8 @@ fi
 export PATH="$HOME/.symfony/bin:$PATH"
 source ~/.symfony_completion
 
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 # Clean up duplicate entries in PATH
 PATH=$(echo $PATH | awk -v RS=: -v ORS=: '!a[$1]++')
 export PATH=$(echo $PATH | sed 's/:*$//')
