@@ -18,7 +18,7 @@ HIST_STAMPS="dd/mm/yyyy"
 
 autoload -U compinit && compinit -u
 
-plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web-search autojump docker nvm node composer laravel zsh-autosuggestions zsh-syntax-highlighting sudo fzf laravel-sail)
+plugins=(git aliases colored-man-pages colorize copypath copyfile cp history web-search autojump docker nvm node composer laravel zsh-autosuggestions zsh-syntax-highlighting sudo fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -159,6 +159,11 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+export PATH="$HOME/.symfony/bin:$PATH"
+source ~/.symfony_completion
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 # Clean up duplicate entries in PATH
 PATH=$(echo $PATH | awk -v RS=: -v ORS=: '!a[$1]++')

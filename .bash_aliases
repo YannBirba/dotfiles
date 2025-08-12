@@ -73,6 +73,10 @@ alias goc="jc"
 alias pm="pm2"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
+function cleanbranches() {
+    git branch -vv | grep ": gone]" | awk "{print \$1}" | xargs -r git branch -d
+}
+
 function ssl() {
     openssl req -nodes -newkey rsa:2048 -keyout "$1"-key.pem -out "$1"-cert.csr -subj "/C=FR/ST=Auvergne-Rhône-Alpes/L=Saint-Etienne/O=Yann Birba/OU=Development/CN=yannbirba.fr"
 }
@@ -315,12 +319,6 @@ function load_php_version() {
         fi
     fi
 }
-
-function chpwd() {
-    load_php_version
-}
-
-load_php_version
 
 # php-version: A utility function to switch between different PHP versions system-wide.
 #
