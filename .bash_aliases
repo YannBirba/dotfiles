@@ -33,7 +33,6 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias apt='sudo apt'
-alias cpv='rsync -ah --info=progress2'
 alias rm="rm -rif"
 alias trash='echo "\nMoving files to ~/.trash ...\n" && mv -ft ~/.trash'
 alias trashlist="ls ~/.trash"
