@@ -71,6 +71,8 @@ alias go="j"
 alias goc="jc"
 alias pm="pm2"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+alias php='symfony php'
+alias composer='symfony composer'
 
 function cleanbranches() {
     git branch -vv | grep ": gone]" | awk "{print \$1}" | xargs -r git branch -d
