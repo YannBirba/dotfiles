@@ -64,3 +64,5 @@ Desktop
 *Zone.Identifier
 .symfony5/*
 .mysql_history
+.devdb
+.codex
