@@ -101,3 +101,8 @@ Desktop
 .augment
 .agents
 .adal
+.aitk
+.open*
+.platformsh
+.sqlite_history
+.copilot

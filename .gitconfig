@@ -11,16 +11,16 @@
 [user]
 	name = Yann Birba
 	email = birbayann@gmail.com
-	signingkey = /home/yann/.ssh/github
+	#signingkey = /home/yann/.ssh/github
 [core]
 	editor = \"/mnt/c/Users/Yann/AppData/Local/Programs/Microsoft VS Code/bin/code\" --wait
 	compression = 9
 	whitespace = error
 	preloadindex = true
-[commit]
-	gpgsign = true
-[gpg]
-	format = ssh
+#[commit]
+	#gpgsign = true
+#[gpg]
+	#format = ssh
 [advice]
 	addEmptyPathspec = false
 	pushNonFastForward = false
