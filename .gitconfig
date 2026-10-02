@@ -17,6 +17,7 @@
 	compression = 9
 	whitespace = error
 	preloadindex = true
+	symlinks = true
 #[commit]
 	#gpgsign = true
 #[gpg]
